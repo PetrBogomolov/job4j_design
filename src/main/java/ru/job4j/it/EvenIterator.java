@@ -16,7 +16,9 @@ public class EvenIterator implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        return findEvenNumberIndex() != -1;
+        int index = findEvenNumberIndex();
+        point = index != -1 ? index : point;
+        return index != -1;
     }
 
     @Override
@@ -24,8 +26,7 @@ public class EvenIterator implements Iterator<Integer> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        point = findEvenNumberIndex();
-        return data[point];
+        return data[point++];
     }
 
     public int findEvenNumberIndex() {
