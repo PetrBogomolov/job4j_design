@@ -9,7 +9,6 @@ public class EvenIterator implements Iterator<Integer> {
     private final int[] data;
     private int point = 0;
 
-
     public EvenIterator(int[] data) {
         this.data = data;
     }
