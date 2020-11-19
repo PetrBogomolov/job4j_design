@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class SimpleArrayTest {
 
-    SimpleArray<Integer> array;
+    private SimpleArray<Integer> array;
 
     @Before
     public void setup() {

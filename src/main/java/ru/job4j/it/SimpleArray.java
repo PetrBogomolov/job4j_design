@@ -34,7 +34,6 @@ public class SimpleArray<T> implements Iterable<T> {
         System.arraycopy(array, index + 1, array, index, possition - index);
     }
 
-
     public T get(int index) {
         int indexOf = Objects.checkIndex(index, possition);
         for (int i = 0; i < array.length; i++) {
@@ -44,7 +43,6 @@ public class SimpleArray<T> implements Iterable<T> {
         }
         return (T) new Object();
     }
-
 
     @Override
     public Iterator<T> iterator() {
