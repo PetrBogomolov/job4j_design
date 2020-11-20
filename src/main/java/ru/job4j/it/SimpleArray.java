@@ -21,27 +21,19 @@ public class SimpleArray<T> implements Iterable<T> {
 
     public void set(int index, T model) {
         int indexOf = Objects.checkIndex(index, possition);
-        for (int i = 0; i < array.length; i++) {
-            if (i == indexOf) {
-                array[i] = model;
-            }
-        }
+        array[indexOf] = model;
     }
 
     public void remove(int index) {
-        int indexof = Objects.checkIndex(index, possition);
+        int indexOf = Objects.checkIndex(index, possition);
+        array[indexOf] = null;
         possition--;
         System.arraycopy(array, index + 1, array, index, possition - index);
     }
 
     public T get(int index) {
         int indexOf = Objects.checkIndex(index, possition);
-        for (int i = 0; i < array.length; i++) {
-            if (i == indexOf) {
-                return (T) array[i];
-            }
-        }
-        return (T) new Object();
+        return (T) array[indexOf];
     }
 
     @Override

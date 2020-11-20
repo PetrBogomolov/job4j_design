@@ -2,9 +2,7 @@ package ru.job4j.it;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.Iterator;
-
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
@@ -67,11 +65,27 @@ public class SimpleArrayTest {
         assertThat(it.next(), is(3));
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void whenExceptionByRemove() {
+        array.add(1);
+        array.add(2);
+        array.add(3);
+        array.remove(4);
+    }
+
     @Test
     public void whenGetSuccessfull() {
         array.add(11);
         array.add(12);
         array.add(13);
         assertThat(array.get(1), is(12));
+    }
+
+    @Test
+    public void whenGetNullThenNull() {
+        array.add(11);
+        array.add(12);
+        array.add(null);
+        assertNull(array.get(2));
     }
 }
