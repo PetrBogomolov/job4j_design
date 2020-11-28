@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 public class ForwardLinkedTest {
 
-    ForwardLinked linked;
+    private ForwardLinked linked;
 
     @Before
     public void setup() {

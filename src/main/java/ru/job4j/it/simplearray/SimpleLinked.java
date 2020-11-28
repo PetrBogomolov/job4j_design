@@ -7,9 +7,9 @@ import java.util.Objects;
 
 public class SimpleLinked<E> implements Iterable {
    private static class Node<E> {
-       E item;
-       Node<E> next;
-       Node<E> prev;
+       private E item;
+       private Node<E> next;
+       private Node<E> prev;
 
        public Node(E item, Node<E> next, Node<E> prev) {
            this.item = item;

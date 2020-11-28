@@ -11,7 +11,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 public class SimpleLinkedTest {
-    SimpleLinked<Integer> linked;
+    private SimpleLinked<Integer> linked;
 
     @Before
     public void setup() {
