@@ -50,6 +50,17 @@ public class ForwardLinked<T> implements Iterable<T> {
         return element;
     }
 
+    public void revert() {
+        if (head == null) {
+            throw new NoSuchElementException();
+        }
+        Node<T> element = null;
+        for (T value : this) {
+            element = new Node<>(value, element, null);
+            head = element;
+        }
+    }
+
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
