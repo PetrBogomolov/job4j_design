@@ -50,6 +50,7 @@ public class SimpleLinked<E> implements Iterable {
         return new Iterator<E>() {
             private int index = 0;
             private int expModCount = modCount;
+            Node<E> current = first;
 
             @Override
             public boolean hasNext() {
@@ -64,8 +65,8 @@ public class SimpleLinked<E> implements Iterable {
                 if (expModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                E item = first.item;
-                first = first.next;
+                E item = current.item;
+                current = current.next;
                 return item;
             }
         };
