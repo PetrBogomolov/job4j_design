@@ -7,6 +7,10 @@ public class SimpleArray<T> implements Iterable<T> {
     private int possition = 0;
     private int modCount = 0;
 
+    public SimpleArray(int size) {
+        container = new Object[size];
+    }
+
     public Object[] getContainer() {
         return container;
     }
@@ -17,10 +21,6 @@ public class SimpleArray<T> implements Iterable<T> {
 
     public int getModCount() {
         return modCount;
-    }
-
-    public SimpleArray(int size) {
-        container = new Object[size];
     }
 
     public T get(int index) {
@@ -37,7 +37,7 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     private Object[] grow() {
-        return container = Arrays.copyOf(container, container.length * 2);
+        return Arrays.copyOf(container, container.length * 2);
     }
 
     @Override

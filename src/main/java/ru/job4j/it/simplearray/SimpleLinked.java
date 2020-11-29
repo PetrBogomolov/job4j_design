@@ -50,7 +50,7 @@ public class SimpleLinked<E> implements Iterable {
         return new Iterator<E>() {
             private int index = 0;
             private int expModCount = modCount;
-            Node<E> current = first;
+            private Node<E> current = first;
 
             @Override
             public boolean hasNext() {
