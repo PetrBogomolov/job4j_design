@@ -7,6 +7,18 @@ public class SimpleArray<T> implements Iterable<T> {
     private int possition = 0;
     private int modCount = 0;
 
+    public Object[] getContainer() {
+        return container;
+    }
+
+    public int getPossition() {
+        return possition;
+    }
+
+    public int getModCount() {
+        return modCount;
+    }
+
     public SimpleArray(int size) {
         container = new Object[size];
     }
