@@ -11,18 +11,6 @@ public class SimpleArray<T> implements Iterable<T> {
         container = new Object[size];
     }
 
-    public Object[] getContainer() {
-        return container;
-    }
-
-    public int getPossition() {
-        return possition;
-    }
-
-    public int getModCount() {
-        return modCount;
-    }
-
     public T get(int index) {
         int indexOf = Objects.checkIndex(index, possition);
         return (T) container[indexOf];

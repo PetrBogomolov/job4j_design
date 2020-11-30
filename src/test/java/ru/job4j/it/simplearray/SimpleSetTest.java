@@ -11,29 +11,25 @@ import static org.junit.Assert.*;
 public class SimpleSetTest {
 
     @Test
-    public void whenAddSuccessfull() {
-        SimpleSet<Integer> set = new SimpleSet<>();
-        set.add(1);
-        assertThat(set.get(0), is(1));
-    }
-
-    @Test(expected = IndexOutOfBoundsException.class)
-    public void whenGetOutBound() {
-        SimpleSet<Integer> set = new SimpleSet<>();
-        set.add(2);
-        set.get(1);
-    }
-
-    @Test
-    public void whenAddThenIt() {
+    public void whenAddSuccessfullThenIt() {
         SimpleSet<Integer> set = new SimpleSet<>();
         set.add(1);
         set.add(2);
-        set.add(3);
         Iterator<Integer> it = set.iterator();
         assertThat(it.next(), is(1));
         assertThat(it.next(), is(2));
-        assertThat(it.next(), is(3));
+    }
+
+    @Test
+    public void whenAddSimilarElements() {
+        SimpleSet<Integer> set = new SimpleSet<>();
+        set.add(1);
+        set.add(1);
+        set.add(2);
+        set.add(2);
+        Iterator<Integer> it = set.iterator();
+        assertThat(it.next(), is(1));
+        assertThat(it.next(), is(2));
     }
 
     @Test(expected = NoSuchElementException.class)
