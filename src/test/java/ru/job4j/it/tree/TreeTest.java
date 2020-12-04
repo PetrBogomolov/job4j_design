@@ -24,4 +24,21 @@ public class TreeTest {
         assertThat(tree.findBy(7).isPresent(), is(false));
     }
 
+    @Test
+    public void whenTreeIsBinaryThenTrue() {
+        Tree<Integer> tree = new Tree<>(new SimpleTree.Node<>(1));
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(4, 9);
+        assertThat(tree.isBinary(), is(true));
+    }
+
+    @Test
+    public void whenTreeIsNotBinaryThenFalse() {
+        Tree<Integer> tree = new Tree<>(new SimpleTree.Node<>(1));
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(1, 4);
+        assertThat(tree.isBinary(), is(false));
+    }
 }
