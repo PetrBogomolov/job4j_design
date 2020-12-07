@@ -11,8 +11,6 @@ public class Analize {
             if (!prev.containsKey(element.id)) {
                 info.added++;
             }
-        }
-        for (User element : current) {
             User user = prev.get(element.id);
             if (user != null) {
                 if (!element.name.equals(user.name)) {
