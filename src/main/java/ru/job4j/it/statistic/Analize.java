@@ -3,50 +3,25 @@ package ru.job4j.it.statistic;
 import java.util.*;
 
 public class Analize {
-    private final Analize.Info info = new Info();
 
     public Info diff(List<User> previous, List<User> current) {
-        info.added = added(previous, current);
-        info.deleted = deleted(previous, current);
-        info.changed = changed(previous, current);
-        return info;
-    }
-
-    private int added(List<User> previous, List<User> current) {
-        int result = 0;
-        List<User> added = new ArrayList<>();
-        for (User element : current) {
-            if (!previous.contains(element)) {
-                added.add(element);
-                result = added.size();
-            }
-        }
-        return result;
-    }
-
-    private int deleted(List<User> previous, List<User> current) {
-        int result = 0;
-        for (User element : previous) {
-            if (current.contains(element)) {
-                result = Math.abs(current.size() - previous.size() - info.added);
-                break;
-            }
-        }
-        return result;
-    }
-
-    private int changed(List<User> previous, List<User> current) {
-        int result = 0;
+        Analize.Info info = new Info();
         Map<Integer, User> prev = convert(previous);
         for (User element : current) {
-            User prevUser = prev.get(element.getId());
-            if (prevUser != null) {
-                if (!element.getName().equals(prevUser.getName())) {
-                    result++;
+            if (!prev.containsKey(element.id)) {
+                info.added++;
+            }
+        }
+        for (User element : current) {
+            User user = prev.get(element.id);
+            if (user != null) {
+                if (!element.name.equals(user.name)) {
+                    info.changed++;
                 }
             }
         }
-        return result;
+        info.deleted = Math.abs(current.size() - previous.size() - info.added);
+        return info;
     }
 
     private Map<Integer, User> convert(List<User> list) {
@@ -66,14 +41,6 @@ public class Analize {
             this.name = name;
         }
 
-        public int getId() {
-            return id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
         @Override
         public boolean equals(Object o) {
             if (this == o) {
@@ -83,20 +50,13 @@ public class Analize {
                 return false;
             }
             User user = (User) o;
-            return id == user.id;
+            return id == user.id
+                   && Objects.equals(name, user.name);
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(id, name);
-        }
-
-        @Override
-        public String toString() {
-            return "User{"
-                    + "id=" + id
-                    + ", name='" + name + '\''
-                    + '}';
         }
     }
 
