@@ -16,23 +16,17 @@ public class Config {
 
     public void load() {
         try(BufferedReader read = new BufferedReader(new FileReader(path))) {
-            List<String> lines = read.lines()
+            read.lines()
                     .map(String::trim)
-                    .collect(Collectors.toList());
-            for (String line : lines) {
-                fillValues(line);
-            }
+                    .forEach(this::fillValues);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void fillValues(String element) {
-        if (element.length() == 0 || element.startsWith("#")) {
+        if (element.length() == 0 || element.startsWith("#") || !element.contains("=")) {
             return;
-        }
-        if (!element.contains("=")) {
-            throw new UnsupportedOperationException("Данный формат строки не соответсвует шаблону key=value");
         } else {
             int equals = element.indexOf("=");
             values.put(element.substring(0, equals), element.substring(equals + 1));
