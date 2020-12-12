@@ -28,19 +28,14 @@ public class Config {
     }
 
     private void fillValues(String element) {
-        if (element.length() == 0) {
+        if (element.length() == 0 || element.startsWith("#")) {
             return;
         }
         if (!element.contains("=")) {
             throw new UnsupportedOperationException("Данный формат строки не соответсвует шаблону key=value");
         } else {
             int equals = element.indexOf("=");
-            int comment = element.indexOf("#");
-            if (comment != -1) {
-                values.put(element.substring(0, equals), element.substring(equals + 1, comment));
-            } else {
-                values.put(element.substring(0, equals), element.substring(equals + 1));
-            }
+            values.put(element.substring(0, equals), element.substring(equals + 1));
         }
     }
 
