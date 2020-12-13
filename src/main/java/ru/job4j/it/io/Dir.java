@@ -19,7 +19,7 @@ public class Dir {
         for (File subfile : Objects.requireNonNull(file.listFiles())) {
             System.out.printf(
                     "name file : %s, size file : %d%n",
-                    subfile.getName(), subfile.getTotalSpace()
+                    subfile.getName(), subfile.length()
             );
         }
     }
