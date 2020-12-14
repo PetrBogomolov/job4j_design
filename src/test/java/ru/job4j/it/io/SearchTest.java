@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+import ru.job4j.it.io.search.Search;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Iterator;
