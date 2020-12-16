@@ -22,26 +22,31 @@ public class Search {
         }
         SearchDublicates dublicate = new SearchDublicates();
         Files.walkFileTree(path, dublicate);
-        List<String> result = new ArrayList<>();
-        HashSet<String> container = new HashSet<>();
-        for (String element : dublicate.result()) {
-            if (!container.add(element)) {
-                result.add(element);
-            }
-        }
-        return result;
+        return dublicate.result();
     }
 
    private static class SearchDublicates extends SimpleFileVisitor<Path> {
         private final List<String> paths = new ArrayList<>();
+        private final HashSet<String> container = new HashSet<>();
 
         public List<String> result() {
             return paths;
         }
 
+        private void filter(String path) {
+             if(!container.add(path)) {
+                 paths.add(path);
+             }
+        }
+
+        private String formatter(Path path) {
+            return String.format("name file : %s, size file : %s%n",
+                    path.getFileName().toString(), path.toFile().length());
+        }
+
         @Override
-        public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
-            paths.add(path.getFileName().toString());
+        public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
+            filter(formatter(path));
             return CONTINUE;
         }
    }

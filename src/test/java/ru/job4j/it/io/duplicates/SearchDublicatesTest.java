@@ -19,7 +19,7 @@ public class SearchDublicatesTest {
         Path path = new File("C://Train").toPath();
         List<String> result = Search.searchDublicate(path);
         Iterator<String> it = result.listIterator();
-        assertThat(it.next(), is("file1.txt"));
-        assertThat(it.next(), is("file2.txt"));
+        assertThat(it.next(), is("name file : file1.txt, size file : 0\r\n"));
+        assertThat(it.next(), is("name file : file2.txt, size file : 0\r\n"));
     }
 }
