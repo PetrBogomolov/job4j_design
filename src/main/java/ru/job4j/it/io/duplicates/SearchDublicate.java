@@ -12,7 +12,7 @@ import java.util.List;
 
 import static java.nio.file.FileVisitResult.CONTINUE;
 
-public class Search {
+public class SearchDublicate {
     public static List<String> searchDublicate(Path path) throws IOException {
         if (!Files.exists(path)) {
             throw new IllegalArgumentException(String.format("Not exist %s", path.getFileName()));

@@ -17,7 +17,7 @@ public class SearchDublicatesTest {
     @Test
     public void whenDirectoryContainEqualsPath() throws IOException {
         Path path = new File("C://Train").toPath();
-        List<String> result = Search.searchDublicate(path);
+        List<String> result = SearchDublicate.searchDublicate(path);
         Iterator<String> it = result.listIterator();
         assertThat(it.next(), is("name file : file1.txt, size file : 0\r\n"));
         assertThat(it.next(), is("name file : file2.txt, size file : 0\r\n"));
