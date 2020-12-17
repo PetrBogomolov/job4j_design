@@ -8,28 +8,31 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class Zip {
-
-    public void packFiles(List<Path> sourse, Path target) {
+    public void packFiles(Path sourse, List<Path> exception, Path target) {
         try (ZipOutputStream zip = new ZipOutputStream(
-                new BufferedOutputStream(new FileOutputStream(target.toString()))
+                new BufferedOutputStream(
+                        new FileOutputStream(target.toString())
+                )
         )) {
-            for (Path element : sourse) {
-                zip.putNextEntry(new ZipEntry(element.toString()));
-                try (BufferedInputStream out = new BufferedInputStream(
-                        new FileInputStream(sourse.toString())
-                )) {
-                    zip.write(out.readAllBytes());
+            zip.putNextEntry(new ZipEntry(sourse.toString()));
+            try (BufferedReader in = new BufferedReader(new FileReader(sourse.toString()))) {
+                while (in.ready()) {
+                    String line = in.readLine();
+                    for (Path path : exception) {
+                        if (!path.getFileName().toString().equals(line)) {
+                            zip.write(line.getBytes());
+                        }
+                    }
                 }
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public void packSingleFile(Path sourse, Path target) {
         try (ZipOutputStream zip = new ZipOutputStream(
-                new BufferedOutputStream(new FileOutputStream(String.valueOf(target)))
+                new BufferedOutputStream(new FileOutputStream(target.toString()))
         )) {
             zip.putNextEntry(new ZipEntry(sourse.toString()));
             try (BufferedInputStream out = new BufferedInputStream(
@@ -37,7 +40,7 @@ public class Zip {
             )) {
                 zip.write(out.readAllBytes());
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -47,6 +50,6 @@ public class Zip {
         Path sourse = new File(func.directory()).toPath();
         Path target = new File(func.output()).toPath();
         String ext = func.exclude();
-        new Zip().packFiles(Search.search(sourse, ext), target);
+        new Zip().packFiles(sourse, Search.search(sourse, ext), target);
     }
 }

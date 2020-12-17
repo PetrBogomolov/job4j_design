@@ -1,7 +1,7 @@
 package ru.job4j.it.io.archive;
 
 public class ArgZip {
-    private static final String DIRECTORY = "c:";
+    private static final String DIRECTORY = "C:";
     private static final String FILE = "*";
     private static final String TARGET = ".zip";
     private final String[] args;
@@ -28,7 +28,7 @@ public class ArgZip {
                 return element;
             }
         }
-        throw new NullPointerException();
+        throw new IllegalArgumentException("The entered data is incorrect");
     }
 
     public String directory() {
