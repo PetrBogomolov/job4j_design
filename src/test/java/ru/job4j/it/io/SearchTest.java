@@ -14,7 +14,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 public class SearchTest {
-    private static final String ext = "js";
+    private static final String EXT = "js";
 
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
@@ -29,7 +29,7 @@ public class SearchTest {
 
     @Test
     public void whenSerachByJS() throws IOException {
-      List<Path> result = Search.search(folder.getRoot().toPath(), ext);
+      List<Path> result = Search.search(folder.getRoot().toPath(), EXT);
       Iterator<Path> it = result.iterator();
       assertThat(it.next().getFileName().toString(), is("file.js"));
       assertThat(it.next().getFileName().toString(), is("newFile.js"));

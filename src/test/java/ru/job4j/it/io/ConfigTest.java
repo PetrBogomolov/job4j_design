@@ -11,7 +11,10 @@ public class ConfigTest {
         String path = "app.propertie";
         Config config = new Config(path);
         config.load();
-        assertThat(config.value("hibernate.dialect"), is("org.hibernate.dialect.PostgreSQLDialect"));
+        assertThat(
+                config.value("hibernate.dialect"),
+                is("org.hibernate.dialect.PostgreSQLDialect")
+        );
         assertThat(config.value("hibernate.connection.username"), is("postgres"));
     }
 }

@@ -23,7 +23,9 @@ public class SearchFiles implements FileVisitor<Path> {
     }
 
     @Override
-    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+    public FileVisitResult preVisitDirectory(
+            Path dir, BasicFileAttributes attrs
+    ) throws IOException {
         return CONTINUE;
     }
 

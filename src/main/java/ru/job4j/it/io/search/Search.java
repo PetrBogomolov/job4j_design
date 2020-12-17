@@ -15,13 +15,15 @@ public class Search {
 
     public static void main(String[] args) throws IOException {
        if (args.length == 0) {
-            throw new IllegalArgumentException("Root folder is null. Usage java -jar dir.jar ROOT_FOLDER.");
+            throw new IllegalArgumentException(
+                    "Root folder is null. Usage java -jar dir.jar ROOT_FOLDER."
+            );
        }
        if (args.length < 2) {
             throw new IllegalArgumentException("The file extension is not specified");
        }
        Path path = new File(args[0]).toPath();
        String ext = args[1];
-       search(path,ext).forEach(System.out::println);
+       search(path, ext).forEach(System.out::println);
     }
 }

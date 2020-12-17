@@ -9,13 +9,12 @@ public class Config {
     private final String path;
     private Map<String, String> values = new HashMap<>();
 
-
     public Config(final String path) {
         this.path = path;
     }
 
     public void load() {
-        try(BufferedReader read = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader read = new BufferedReader(new FileReader(path))) {
             read.lines()
                     .map(String::trim)
                     .forEach(this::fillValues);
@@ -47,6 +46,7 @@ public class Config {
         }
         return out.toString();
     }
+
     public static void main(String[] args) {
         System.out.println(new Config("app.propertie"));
     }

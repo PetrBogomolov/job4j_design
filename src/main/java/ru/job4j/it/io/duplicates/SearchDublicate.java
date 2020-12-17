@@ -18,7 +18,9 @@ public class SearchDublicate {
             throw new IllegalArgumentException(String.format("Not exist %s", path.getFileName()));
         }
         if (!Files.isDirectory(path)) {
-            throw new IllegalArgumentException(String.format("Not directory %s", path.getFileName()));
+            throw new IllegalArgumentException(
+                    String.format("Not directory %s", path.getFileName())
+            );
         }
         SearchDublicates dublicate = new SearchDublicates();
         Files.walkFileTree(path, dublicate);
@@ -34,7 +36,7 @@ public class SearchDublicate {
         }
 
         private void filter(String path) {
-             if(!container.add(path)) {
+             if (!container.add(path)) {
                  paths.add(path);
              }
         }

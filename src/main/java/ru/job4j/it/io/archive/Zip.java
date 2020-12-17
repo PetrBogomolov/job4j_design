@@ -10,10 +10,14 @@ import java.util.zip.ZipOutputStream;
 public class Zip {
 
     public void packFiles(List<Path> sourse, Path target) {
-        try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target.toString())))) {
+        try (ZipOutputStream zip = new ZipOutputStream(
+                new BufferedOutputStream(new FileOutputStream(target.toString()))
+        )) {
             for (Path element : sourse) {
                 zip.putNextEntry(new ZipEntry(element.toString()));
-                try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(sourse.toString()))) {
+                try (BufferedInputStream out = new BufferedInputStream(
+                        new FileInputStream(sourse.toString())
+                )) {
                     zip.write(out.readAllBytes());
                 }
             }
@@ -24,9 +28,13 @@ public class Zip {
     }
 
     public void packSingleFile(Path sourse, Path target) {
-        try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(String.valueOf(target))))) {
+        try (ZipOutputStream zip = new ZipOutputStream(
+                new BufferedOutputStream(new FileOutputStream(String.valueOf(target)))
+        )) {
             zip.putNextEntry(new ZipEntry(sourse.toString()));
-            try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(sourse.toString()))) {
+            try (BufferedInputStream out = new BufferedInputStream(
+                    new FileInputStream(sourse.toString())
+            )) {
                 zip.write(out.readAllBytes());
             }
         } catch (IOException e) {

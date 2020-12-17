@@ -17,18 +17,18 @@ public class Tree<E> implements SimpleTree<E> {
         boolean result = false;
         Optional<Node<E>> current = findBy(parent);
         if (current.isPresent() && findBy(child).isEmpty()) {
-            result = current.get().children.add(new Node<>(child));
+            result = current.get().getChildren().add(new Node<>(child));
         }
         return result;
     }
 
     @Override
     public Optional<Node<E>> findBy(E value) {
-        return find(element -> element.value.equals(value));
+        return find(element -> element.getValue().equals(value));
     }
 
     public boolean isBinary() {
-        return find(element -> element.children.size() > 2).isEmpty();
+        return find(element -> element.getChildren().size() > 2).isEmpty();
     }
 
     private Optional<Node<E>> find(Predicate<Node<E>> predicate) {
@@ -41,7 +41,7 @@ public class Tree<E> implements SimpleTree<E> {
                 result = Optional.of(element);
                 break;
             }
-            queue.addAll(element.children);
+            queue.addAll(element.getChildren());
         }
         return result;
     }

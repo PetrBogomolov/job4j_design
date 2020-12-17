@@ -16,12 +16,14 @@ public class Analizy {
             String storage = null;
             while (read.ready()) {
                 String currentLine = read.readLine();
-                if (cursor == null && (currentLine.contains(STATUS400) || currentLine.contains(STATUS500))) {
+                if (cursor == null && (currentLine.contains(STATUS400)
+                        || currentLine.contains(STATUS500))) {
                     String[] lines = currentLine.split(" ");
                     storage = lines[1] + REGEX;
                     cursor = currentLine;
                 }
-                if (cursor != null && (!currentLine.contains(STATUS400) && !currentLine.contains(STATUS500))) {
+                if (cursor != null && (!currentLine.contains(STATUS400)
+                        && !currentLine.contains(STATUS500))) {
                     String[] lines = currentLine.split(" ");
                     result.add(storage + lines[1] + REGEX);
                     cursor = null;
