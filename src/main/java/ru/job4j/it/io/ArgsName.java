@@ -16,7 +16,9 @@ public class ArgsName {
         }
         for (String parametr : args) {
             if (!parametr.contains("=")) {
-                break;
+                throw new UnsupportedOperationException(
+                        "Данный формат строки не соответсвует шаблону key=value"
+                );
             } else {
                 String[] lines = parametr.split("=");
                 values.put(lines[0].replaceFirst("-", ""), lines[1]);
