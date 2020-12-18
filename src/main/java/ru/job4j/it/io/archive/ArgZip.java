@@ -1,10 +1,10 @@
 package ru.job4j.it.io.archive;
 
 public class ArgZip {
-    private static final String DIRECTORY = "C:";
-    private static final String FILE = "*";
-    private static final String TARGET = ".zip";
-    private final String[] args;
+    private String directory;
+    private String exclude;
+    private String output;
+    private String[] args;
 
     public ArgZip(String[] args) {
         this.args = args;
@@ -16,30 +16,41 @@ public class ArgZip {
                     "Root folder is null. Usage java -jar dir.jar ROOT_FOLDER."
             );
         }
-        if (args.length < 3) {
+        if (args.length < 6) {
             throw new IllegalArgumentException("Not all data entered");
         }
     }
 
-    private String chooseElement(String str) {
+    private void chooseElement() {
         valid();
-        for (String element : args) {
-            if (element.contains(str)) {
-                return element;
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].equals("-d")) {
+                directory = args[i +1];
+            }
+            if (args[i].equals("-e")) {
+                exclude = args[i +1];
+            }
+            if (args[i].equals("-o")) {
+                output = args[i +1];
             }
         }
-        throw new IllegalArgumentException("The entered data is incorrect");
+        if (directory == null && exclude == null && output == null) {
+            throw new IllegalArgumentException("The entered data is incorrect");
+        }
     }
 
     public String directory() {
-       return chooseElement(DIRECTORY);
+        chooseElement();
+        return directory;
     }
 
     public String exclude() {
-        return chooseElement(FILE).replace(FILE, "");
+        chooseElement();
+        return exclude;
     }
 
     public String output() {
-       return chooseElement(TARGET);
+        chooseElement();
+        return output;
     }
 }
