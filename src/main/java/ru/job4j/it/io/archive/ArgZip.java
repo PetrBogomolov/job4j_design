@@ -21,7 +21,7 @@ public class ArgZip {
         }
     }
 
-    private void chooseElement() {
+    public void chooseElement() {
         valid();
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-d")) {
@@ -40,17 +40,14 @@ public class ArgZip {
     }
 
     public String directory() {
-        chooseElement();
         return directory;
     }
 
     public String exclude() {
-        chooseElement();
         return exclude;
     }
 
     public String output() {
-        chooseElement();
         return output;
     }
 }

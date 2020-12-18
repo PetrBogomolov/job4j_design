@@ -50,6 +50,7 @@ public class Zip {
 
     public static void main(String[] args) throws IOException {
         ArgZip func = new ArgZip(args);
+        func.chooseElement();
         Path sourse = new File(func.directory()).toPath();
         Path target = new File(func.output()).toPath();
         String ext = func.exclude();
