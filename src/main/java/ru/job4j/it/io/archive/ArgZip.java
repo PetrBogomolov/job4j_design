@@ -25,13 +25,13 @@ public class ArgZip {
         valid();
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-d")) {
-                directory = args[i +1];
+                directory = args[i + 1];
             }
             if (args[i].equals("-e")) {
-                exclude = args[i +1];
+                exclude = args[i + 1];
             }
             if (args[i].equals("-o")) {
-                output = args[i +1];
+                output = args[i + 1];
             }
         }
         if (directory == null && exclude == null && output == null) {
