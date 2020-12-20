@@ -13,6 +13,7 @@ public class ConsoleChat {
     private final String path;
     private final String botAnswers;
     private final List<String> readFile = new ArrayList<>();
+    private final List<String> dialog = new ArrayList<>();
 
     public ConsoleChat(String path, String botAnswers) {
         this.path = path;
@@ -23,41 +24,61 @@ public class ConsoleChat {
         boolean run = true;
         readFile();
         Scanner in = new Scanner(System.in);
+        String hello = "Welcome in our chat! You can start communicating with chat bot";
+        System.out.println(hello);
+        dialog.add(hello + System.lineSeparator());
+        while (run) {
+            String user = in.nextLine();
+            String bot;
+            if (user.trim().toLowerCase().equals(OUT)) {
+                bot = "Program exit";
+                System.out.println(bot);
+                in.close();
+                run = false;
+                addInDialog(user, bot);
+            } else if (user.trim().toLowerCase().equals(STOP)) {
+                bot = "Bot went on a break) Wait please";
+                System.out.println(bot);
+                addInDialog(user, bot);
+                while (!user.trim().toLowerCase().equals(CONTINUE)) {
+                    user = in.nextLine();
+                    if (!user.equals(CONTINUE)) {
+                        addInDialog(user);
+                    }
+                }
+                bot = "Bot is back with you";
+                System.out.println(bot);
+                addInDialog(user, bot);
+            } else {
+                bot = getAnswerBot();
+                System.out.println(bot);
+                addInDialog(user, bot);
+            }
+        }
+       writeDialog();
+    }
+
+    private void addInDialog(String user, String bot) {
+        dialog.add(String.format("User: %s", user)
+                + System.lineSeparator()
+                + String.format("Bot: %s", bot)
+                + System.lineSeparator()
+        );
+    }
+
+    private void addInDialog(String user) {
+        dialog.add(String.format("User: %s", user)
+                + System.lineSeparator()
+        );
+    }
+
+    private void writeDialog() {
         try (BufferedWriter write = new BufferedWriter(
                 new FileWriter(path, StandardCharsets.UTF_8))) {
-            String hello = "Welcome in our chat! You can start communicating with chat bot";
-            System.out.println(hello);
-            while (run) {
-                String text = in.nextLine();
-                String answersBot;
-                if (text.trim().toLowerCase().equals(OUT)) {
-                    answersBot = "Program exit";
-                    System.out.println(answersBot);
-                    in.close();
-                    run = false;
-                } else if (text.trim().toLowerCase().equals(STOP)) {
-                    answersBot = "Bot went on a break) Wait please";
-                    System.out.println(answersBot);
-                    while (!text.trim().toLowerCase().equals(CONTINUE)) {
-                        text = in.nextLine();
-                    }
-                    answersBot = "Bot is back with you";
-                    System.out.println(answersBot);
-                    answersBot = "Input text";
-                    System.out.println(answersBot);
-                } else {
-                    answersBot = getAnswerBot();
-                    System.out.println(answersBot);
-                }
-                write.write(hello
-                         + System.lineSeparator()
-                         + String.format("User: %s", text)
-                         + System.lineSeparator()
-                         + String.format("Bot: %s", answersBot)
-                         + System.lineSeparator()
-                );
+            for (String line : dialog) {
+                write.write(line);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
