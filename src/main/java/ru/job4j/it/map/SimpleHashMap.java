@@ -27,8 +27,8 @@ public class SimpleHashMap<K, V> implements Iterable<V> {
     }
 
     private int hash(K key) {
-        int h;
-        return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
+        int h = key.hashCode();
+        return h ^ (h >>> 16);
     }
 
     private int findIndex(K key, int lenght) {
