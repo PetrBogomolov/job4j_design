@@ -30,21 +30,19 @@ public class Contact implements Serializable {
 
     public static File serialization(Contact contact) throws IOException {
         File tempFile = Files.createTempFile(null, null).toFile();
-        FileOutputStream write = new FileOutputStream(tempFile);
-        ObjectOutputStream oos = new ObjectOutputStream(write);
-        oos.writeObject(contact);
-        write.close();
-        oos.close();
+        try (FileOutputStream write = new FileOutputStream(tempFile);
+        ObjectOutputStream oos = new ObjectOutputStream(write)) {
+            oos.writeObject(contact);
+        }
         return tempFile;
     }
 
     public static Contact deserialization(File file) throws IOException, ClassNotFoundException {
         Contact result;
-        FileInputStream read = new FileInputStream(file);
-        ObjectInputStream ois = new ObjectInputStream(read);
-        result = (Contact) ois.readObject();
-        read.close();
-        ois.close();
+        try (FileInputStream read = new FileInputStream(file);
+        ObjectInputStream ois = new ObjectInputStream(read)) {
+            result = (Contact) ois.readObject();
+        }
         return result;
     }
 
