@@ -1,4 +1,4 @@
-package ru.job4j.io.socket.chat;
+package ru.job4j.io.socket;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
