@@ -18,6 +18,26 @@ public class Computer {
         this.externalHardware = externalHardware;
     }
 
+    public boolean isLaptop() {
+        return laptop;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public int getAdditionalConnectors() {
+        return additionalConnectors;
+    }
+
+    public SystemBlok getSystemBlok() {
+        return systemBlok;
+    }
+
+    public String[] getExternalHardware() {
+        return externalHardware;
+    }
+
     @Override
     public String toString() {
         return "Computer: " + System.lineSeparator()

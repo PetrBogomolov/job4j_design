@@ -2,6 +2,7 @@ package ru.job4j.io.serialization.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.json.JSONObject;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,5 +16,18 @@ public class Main {
         System.out.println(myComputerJson);
         final Computer myComputerMod = gson.fromJson(myComputerJson, Computer.class);
         System.out.println(myComputerMod);
+
+        /* JSONObject из json-строки строки */
+        JSONObject jsonObjectFromLine = new JSONObject(myComputerJson);
+        System.out.println(jsonObjectFromLine.toString());
+
+        /* JSONObject напрямую методом put */
+        JSONObject jsonObjectMethodPut = new JSONObject();
+        jsonObjectMethodPut.put("Laptop", myComputer.isLaptop());
+        jsonObjectMethodPut.put("Model", myComputer.getModel());
+        jsonObjectMethodPut.put("additionalConnectors", myComputer.getAdditionalConnectors());
+        jsonObjectMethodPut.put("SystemBlok", myComputer.getSystemBlok());
+        jsonObjectMethodPut.put("ExternalHardware", myComputer.getExternalHardware());
+        System.out.println(jsonObjectMethodPut.toString());
     }
 }
