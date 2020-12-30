@@ -1,4 +1,4 @@
-package ru.job4j.io.io;
+package ru.job4j.io.io.archive;
 
 public class ArgZip {
     private String directory;
