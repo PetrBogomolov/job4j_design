@@ -1,29 +1,17 @@
 package ru.job4j.io.control;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.ArrayList;
-import java.util.List;
-import static java.nio.file.FileVisitResult.CONTINUE;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-public class SearchFile {
+public class GetData {
     private Path directory;
     private String targetFileName;
     private String searchingFileName;
-
+    private String patternType;
     private final String[] args;
 
-    public SearchFile(String[] args) {
+    public GetData(String[] args) {
         this.args = args;
-    }
-
-    public List<Path> findFile() throws IOException {
-        FindFiles exception = new FindFiles(searchingFileName);
-        Files.walkFileTree(directory, exception);
-        return exception.getFiles();
     }
 
     public void searchKey() {
@@ -32,7 +20,6 @@ public class SearchFile {
                     "Root folder is null. Usage java -jar dir.jar ROOT_FOLDER."
             );
         }
-        String patternType = null;
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-d")) {
                 directory = Path.of(args[i + 1]);
@@ -57,7 +44,7 @@ public class SearchFile {
             searchingFileName =  "^" + searchingFileName.replace(".", "\\.") + "$";
         }
         if (searcheType.equals("-m")) {
-            searchingFileName = searchingFileName.replace("*", ".*");
+            searchingFileName = searchingFileName.replace("*", "");
         }
     }
 
@@ -78,41 +65,19 @@ public class SearchFile {
         }
     }
 
-    public void recordingResult() {
-        try (BufferedWriter write = new BufferedWriter(new FileWriter(targetFileName))) {
-            for (Path element : findFile()) {
-                write.write(element.toString() + System.lineSeparator());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public Path getDirectiry() {
+        return directory;
     }
 
-    private static class FindFiles extends SimpleFileVisitor<Path> {
-        private final List<Path> files = new ArrayList<>();
-        private final String pattern;
-
-        public FindFiles(String pattern) {
-            this.pattern = pattern;
-        }
-
-        public List<Path> getFiles() {
-            return files;
-        }
-
-        @Override
-        public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
-            if (path.getFileName().toString().matches(pattern)) {
-                files.add(path.toAbsolutePath());
-            }
-            return CONTINUE;
-        }
+    public String getSearchingFileName() {
+        return searchingFileName;
     }
 
-    public static void main(String[] args) throws IOException {
-        SearchFile find = new SearchFile(args);
-        find.searchKey();
-        find.recordingResult();
-        System.out.println(find.searchingFileName);
+    public String getTargetFileName() {
+        return targetFileName;
+    }
+
+    public String getPatternType() {
+        return patternType;
     }
 }
