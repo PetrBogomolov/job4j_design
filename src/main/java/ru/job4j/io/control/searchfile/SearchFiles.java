@@ -1,4 +1,6 @@
-package ru.job4j.io.control;
+package ru.job4j.io.control.searchfile;
+
+import ru.job4j.io.control.searchfile.FilterFiles;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,7 +20,7 @@ public class SearchFiles {
             exception = new FilterFiles(path -> path.getFileName().toString().endsWith(searchingFileName));
         }
         else if (patternType.contains("-r")) {
-            exception = new FilterFiles(path -> path.getFileName().toString().matches(searchingFileName));
+            exception = new FilterFiles(path -> path.getFileName().toString().equals(searchingFileName));
         }
         Files.walkFileTree(directory, Objects.requireNonNull(exception));
         return exception.getFiles();

@@ -87,7 +87,7 @@ public class FilterDublicateFlight {
     private String newLine(String line, StringBuilder builder, String delimiter) {
         String[] lines = line.split(delimiter);
         while (lines[1].startsWith("0")) {
-            lines[1] = lines[1].replace("0", "");
+            lines[1] = lines[1].replaceFirst("0", "");
         }
         builder.append(lines[0]).append(lines[1]);
         return builder.toString();
