@@ -72,9 +72,6 @@ public class FilterDublicateFlight {
         if (line.contains(" ")) {
             line = line.replace(" ", "");
         }
-        if (line.endsWith("0")) {
-            line = line.replace("0", "");
-        }
         if (line.matches(AZAZ)) {
             line = newLine(line, builder, "(?<=[A-Z][A-Z])");
         } else if (line.matches(AZAZAZ)) {
