@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -13,7 +12,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
