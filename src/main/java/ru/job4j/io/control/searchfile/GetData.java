@@ -30,22 +30,9 @@ public class GetData {
             if (args[i].equals("-n")) {
                 searchingFileName = args[i + 1];
                 patternType = args[i + 2];
-                convertSearchingFileName(patternType);
             }
         }
         validKey();
-    }
-
-    private void convertSearchingFileName(String searcheType) {
-        if (!searcheType.equals("-r") && !searcheType.equals("-f") && !searcheType.equals("-m")) {
-            throw new IllegalArgumentException("The type fail is not correct");
-        }
-        if (searcheType.equals("-r")) {
-            searchingFileName =  "^" + searchingFileName.replace(".", "\\.") + "$";
-        }
-        if (searcheType.equals("-m")) {
-            searchingFileName = searchingFileName.replace("*", "");
-        }
     }
 
     private void validKey() {
