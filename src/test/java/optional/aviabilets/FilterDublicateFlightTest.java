@@ -16,23 +16,24 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 public class FilterDublicateFlightTest {
-    private FilterDublicateFlight filter;
+
+    @Rule
+    public TemporaryFolder folder = new TemporaryFolder();
+
+    private FilterDublicateFlights filter;
     private List<String> result;
 
     @Before
     public void setup() {
-        filter = new FilterDublicateFlight();
+        filter = new FilterDublicateFlights();
         result = new ArrayList<>();
     }
-
-    @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
 
     @Test
     public void whenDublicateRemove() throws IOException {
         Path sourse = new File("flights.txt").toPath();
         Path target = folder.newFile("noDublicate").toPath();
-        filter.removeDublicateFlights(sourse, target);
+        filter.removeDuplicatesFlights(sourse, target);
         try (BufferedReader in = new BufferedReader(new FileReader(String.valueOf(target)))) {
             in.lines().forEach(result::add);
         }
