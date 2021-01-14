@@ -1,21 +1,30 @@
 package ru.job4j.io.control.task;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.LinkedList;
 
 public class Shell {
-    private final List<String> currentDirectory = new ArrayList<>();
+    private final LinkedList<String> currentDirectory = new LinkedList<>();
+    private final static String REGEX = "(?=/)";
 
     public void cd(String path) {
-        currentDirectory.add("/");
-        if (!path.startsWith("/")) {
-            currentDirectory.add(path);
-        } else {
-            currentDirectory.add(path.replaceAll("/", ""));
-        }
-        if (path.contains("..")) {
+        if (path.equals("/")) {
             currentDirectory.removeAll(currentDirectory);
             currentDirectory.add("/");
+            return;
+        }
+        if (!path.startsWith("/")) {
+            currentDirectory.add("/" + path);
+        } else {
+            String[] linesWay = path.split(REGEX);
+            currentDirectory.addAll(Arrays.asList(linesWay));
+        }
+        if (currentDirectory.getLast().equals("/..")) {
+            currentDirectory.pollLast();
+            currentDirectory.pollLast();
+            if (currentDirectory.size() == 0) {
+                currentDirectory.add("/");
+            }
         }
     }
 
@@ -23,11 +32,5 @@ public class Shell {
         StringBuilder result = new StringBuilder();
         currentDirectory.forEach(result::append);
         return result.toString();
-    }
-
-    public static void main(String[] args) {
-        Shell shell = new Shell();
-        shell.cd("/user/");
-        System.out.println(shell.pwd());
     }
 }
