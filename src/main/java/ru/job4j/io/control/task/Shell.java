@@ -13,10 +13,11 @@ public class Shell {
             currentDirectory.add("/");
             return;
         }
+        String[] linesWay = path.split(REGEX);
         if (!path.startsWith("/")) {
-            currentDirectory.add("/" + path);
+            currentDirectory.add("/" + linesWay[0]);
+            currentDirectory.addAll(Arrays.asList(linesWay).subList(1, linesWay.length));
         } else {
-            String[] linesWay = path.split(REGEX);
             currentDirectory.addAll(Arrays.asList(linesWay));
         }
         if (currentDirectory.getLast().equals("/..")) {
@@ -32,5 +33,11 @@ public class Shell {
         StringBuilder result = new StringBuilder();
         currentDirectory.forEach(result::append);
         return result.toString();
+    }
+
+    public static void main(String[] args) {
+        Shell shell = new Shell();
+        shell.cd("/..");
+        System.out.println(shell.pwd());
     }
 }

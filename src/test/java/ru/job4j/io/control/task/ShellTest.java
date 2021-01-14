@@ -35,12 +35,22 @@ public class ShellTest {
     }
 
     @Test
-    public void whenCdUserBack() {
+    public void whenCdUserBackFirstOption() {
         Shell shell = new Shell();
         shell.cd("user");
         shell.cd("..");
         assertThat(
                 shell.pwd(), is("/")
+        );
+    }
+
+    @Test
+    public void whenCdUserBackSecondOption() {
+        Shell shell = new Shell();
+        shell.cd("home/user/something");
+        shell.cd("..");
+        assertThat(
+                shell.pwd(), is("/home/user")
         );
     }
 }
