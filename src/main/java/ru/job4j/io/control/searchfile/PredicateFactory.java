@@ -10,7 +10,9 @@ public class PredicateFactory {
                 result = new RegexSearchFileName(searchFileName);
             }
             if (patternType.equals("-m")) {
-                result = new RegexSearchFileName(RegexSearchFileName.prepareSearchFileName(searchFileName));
+                result = new RegexSearchFileName(
+                        RegexSearchFileName.prepareSearchFileName(searchFileName)
+                );
             }
             if (patternType.equals("-r")) {
                 result = new RegexSearchFileName(searchFileName);

@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 public class Shell {
-    private final LinkedList<String> currentDirectory = new LinkedList<>();
     private final static String REGEX = "(?=/)";
+    private final LinkedList<String> currentDirectory = new LinkedList<>();
 
     public void cd(String path) {
         if (path.equals("/")) {

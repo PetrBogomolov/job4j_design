@@ -8,7 +8,9 @@ public class Run {
     public static void main(String[] args) throws IOException {
         GetData key = new GetData(args);
         key.searchKey();
-        Predicate<Path> predicate = PredicateFactory.createPredicate(key.getSearchingFileName(), key.getPatternType());
+        Predicate<Path> predicate = PredicateFactory.createPredicate(
+                key.getSearchingFileName(), key.getPatternType()
+        );
         SearchFiles find = new SearchFiles();
         find.recordingResult(
                 find.findFile(key.getDirectiry(), predicate),

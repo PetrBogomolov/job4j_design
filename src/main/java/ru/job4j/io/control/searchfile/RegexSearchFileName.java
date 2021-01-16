@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 public class RegexSearchFileName implements Predicate<Path> {
-    public final Pattern pattern;
+    private final Pattern pattern;
 
     public RegexSearchFileName(String searchFileName) {
         this.pattern = Pattern.compile(searchFileName);
