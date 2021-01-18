@@ -71,10 +71,26 @@ FROM car c
          JOIN engine e ON c.engine_id = e.id
          JOIN transmission t ON c.transmission_id = t.id;
 
--- машины у которых нет каких-то деталей
+-- машины у которых нет кузова
 SELECT c.name марка, b.name кузов, e.name двигатель, t.name коробка_передач
 FROM car c
          LEFT JOIN body b ON c.body_id = b.id
          LEFT JOIN engine e ON c.engine_id = e.id
          LEFT JOIN transmission t ON c.transmission_id = t.id
-WHERE c.name IS NULL OR b.id IS NULL OR e.id IS NULL OR t.id IS NULL;
+WHERE b.id IS NULL;
+
+-- машины у которых нет двигателя
+SELECT c.name марка, b.name кузов, e.name двигатель, t.name коробка_передач
+FROM car c
+         LEFT JOIN body b ON c.body_id = b.id
+         LEFT JOIN engine e ON c.engine_id = e.id
+         LEFT JOIN transmission t ON c.transmission_id = t.id
+WHERE e.id IS NULL;
+
+-- машины у которых нет коробки передач
+SELECT c.name марка, b.name кузов, e.name двигатель, t.name коробка_передач
+FROM car c
+         LEFT JOIN body b ON c.body_id = b.id
+         LEFT JOIN engine e ON c.engine_id = e.id
+         LEFT JOIN transmission t ON c.transmission_id = t.id
+WHERE t.id IS NULL;
