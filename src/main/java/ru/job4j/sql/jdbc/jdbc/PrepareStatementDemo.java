@@ -22,11 +22,11 @@ public class PrepareStatementDemo {
 
     public City insert(City city) {
         try (PreparedStatement statement =
-                     connection.prepareStatement("insert into cities(name, population) values (?, ?)",
-                             Statement.RETURN_GENERATED_KEYS)
+              connection.prepareStatement("insert into cities(name, population) values (?, ?)",
+                         Statement.RETURN_GENERATED_KEYS)
         ) {
             statement.setString(1, city.getName());
-            statement.setInt(2,city.getPopulation());
+            statement.setInt(2, city.getPopulation());
             statement.execute();
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
@@ -42,10 +42,11 @@ public class PrepareStatementDemo {
     public boolean update(City city) {
         boolean result = false;
         try (PreparedStatement statement =
-                connection.prepareStatement("update cities set name = ?, population = ? where id = ?")) {
+            connection.prepareStatement("update cities set name = ?, population = ? where id = ?")
+        ) {
             statement.setString(1, city.getName());
             statement.setInt(2, city.getPopulation());
-            statement.setInt(3,city.getId());
+            statement.setInt(3, city.getId());
             result = statement.executeUpdate() > 0;
         } catch (SQLException throwables) {
             throwables.printStackTrace();

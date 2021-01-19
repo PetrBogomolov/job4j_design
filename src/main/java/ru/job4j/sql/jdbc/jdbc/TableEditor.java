@@ -58,7 +58,8 @@ public class TableEditor implements AutoCloseable {
         }
     }
 
-    public void renameColumn(String tableName, String columnName, String newColumnName) throws SQLException {
+    public void renameColumn(String tableName, String columnName, String newColumnName)
+            throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = String.format("ALTER TABLE %s RENAME COLUMN %s TO %s",
                     tableName, columnName, newColumnName);
