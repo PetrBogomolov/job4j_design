@@ -10,7 +10,7 @@ public class ConfigTest {
 
     @Test
     public void whenPairWithoutComment() {
-        String path = "app.propertie";
+        String path = "app.config.txt";
         Config config = new Config(path);
         config.load();
         assertThat(
