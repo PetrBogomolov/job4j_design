@@ -56,13 +56,11 @@ INSERT INTO car (name, body_id, engine_id, transmission_id) VALUES ('MERCEDES', 
 INSERT INTO car (name, body_id, engine_id, transmission_id) VALUES ('TOYOTA', 3, 3, 3);
 INSERT INTO car (name, body_id, engine_id, transmission_id) VALUES ('BMW', null, 1, 2);
 INSERT INTO car (name, body_id, engine_id, transmission_id) VALUES ('TOYOTA', 3, null, 3);
-INSERT INTO car (name, body_id, engine_id, transmission_id) VALUES ('VOLVO', null, 1, null);
+INSERT INTO car (name, body_id, engine_id, transmission_id) VALUES ('VOLVO', 3, 1, null);
 INSERT INTO car (name, body_id, engine_id, transmission_id) VALUES ('MERCEDES', 2, null, 2);
 INSERT INTO car (name, body_id, engine_id, transmission_id) VALUES ('TOYOTA', null, 3, 3);
 INSERT INTO car (name, body_id, engine_id, transmission_id) VALUES ('BMW', 4, 1, null);
-INSERT INTO car (name, body_id, engine_id, transmission_id) VALUES ('VOLVO', 2, null, null);
-INSERT INTO car (name, body_id, engine_id, transmission_id) VALUES (null, 1, 1, 2);
-INSERT INTO car (name, body_id, engine_id, transmission_id) VALUES (null, 2, 2, 2);
+INSERT INTO car (name, body_id, engine_id, transmission_id) VALUES ('VOLVO', 2, null, 3);
 
 -- машины со всеми деталями
 SELECT c.name марка, b.name кузов, e.name двигатель, t.name коробка_передач
@@ -72,25 +70,19 @@ FROM car c
          JOIN transmission t ON c.transmission_id = t.id;
 
 -- машины у которых нет кузова
-SELECT c.name марка, b.name кузов, e.name двигатель, t.name коробка_передач
+SELECT c.name марка, b.name кузов
 FROM car c
          LEFT JOIN body b ON c.body_id = b.id
-         LEFT JOIN engine e ON c.engine_id = e.id
-         LEFT JOIN transmission t ON c.transmission_id = t.id
 WHERE b.id IS NULL;
 
 -- машины у которых нет двигателя
-SELECT c.name марка, b.name кузов, e.name двигатель, t.name коробка_передач
+SELECT c.name марка, e.name двигатель
 FROM car c
-         LEFT JOIN body b ON c.body_id = b.id
          LEFT JOIN engine e ON c.engine_id = e.id
-         LEFT JOIN transmission t ON c.transmission_id = t.id
 WHERE e.id IS NULL;
 
 -- машины у которых нет коробки передач
-SELECT c.name марка, b.name кузов, e.name двигатель, t.name коробка_передач
+SELECT c.name марка, t.name коробка_передач
 FROM car c
-         LEFT JOIN body b ON c.body_id = b.id
-         LEFT JOIN engine e ON c.engine_id = e.id
          LEFT JOIN transmission t ON c.transmission_id = t.id
 WHERE t.id IS NULL;
