@@ -24,7 +24,9 @@ public class ImportDB {
         try (BufferedReader read = new BufferedReader(new FileReader(file))) {
             while (read.ready()) {
                 String[] elementOfUser = read.readLine().split(REGEX);
-                users.add(new User(elementOfUser[0], elementOfUser[1]));
+                if (elementOfUser.length == 2) {
+                    users.add(new User(elementOfUser[0], elementOfUser[1]));
+                }
             }
 
         } catch (IOException e) {
