@@ -7,7 +7,7 @@ GROUP BY mt.name, st.name
 HAVING st.name = 'accept';
 
 -- запрос выдает список совещаний, на которые не было ни одного приглашения
-SELECT m.name AS совещания
+SELECT m.name as совещания_без_заявок
 FROM guest_list gl
-         JOIN meetings m ON gl.name_meeting = m.id
-WHERE name_member IS NULL;
+         LEFT JOIN meetings m ON gl.name_meeting = m.id
+WHERE gl.status_member IS NULL;
