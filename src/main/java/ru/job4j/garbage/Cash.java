@@ -11,7 +11,13 @@ public class Cash {
 
     private final Map<String, SoftReference<String>> cash = new HashMap<>();
 
-    public String readFile(String file) {
+
+    public String getTextOfFile(String file) {
+        SoftReference<String> softRef = cash.get(file);
+        return softRef != null ? softRef.get() : readFile(file);
+    }
+
+    private String readFile(String file) {
         StringBuilder result = new StringBuilder();
         try (BufferedReader read = new BufferedReader(new FileReader(file))) {
             while (read.ready()) {
@@ -28,10 +34,6 @@ public class Cash {
 
     private void saveCash(String key, String value) {
         cash.put(key, new SoftReference<>(value));
-    }
-
-    public String getTextOfFile(String file) {
-        return cash.get(file) != null ? cash.get(file).get() : readFile(file);
     }
 
     public static void main(String[] args) {
