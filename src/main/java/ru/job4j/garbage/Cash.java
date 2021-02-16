@@ -14,7 +14,7 @@ public class Cash {
 
     public String getTextOfFile(String file) {
         SoftReference<String> softRef = cash.get(file);
-        return softRef != null ? softRef.get() : readFile(file);
+        return softRef != null && softRef.get() != null ? softRef.get() : readFile(file);
     }
 
     private String readFile(String file) {
