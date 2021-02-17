@@ -11,10 +11,17 @@ public class Cash {
 
     private final Map<String, SoftReference<String>> cash = new HashMap<>();
 
-
     public String getTextOfFile(String file) {
-        SoftReference<String> softRef = cash.get(file);
-        return softRef != null && softRef.get() != null ? softRef.get() : readFile(file);
+        String result;
+        if (cash.containsKey(file)) {
+            result = cash.get(file).get();
+            if (result == null) {
+                result = readFile(file);
+            }
+        } else {
+            result = readFile(file);
+        }
+        return result;
     }
 
     private String readFile(String file) {
