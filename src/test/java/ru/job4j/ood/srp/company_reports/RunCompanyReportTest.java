@@ -40,8 +40,8 @@ public class RunCompanyReportTest {
                + " </head>" + System.lineSeparator()
                + " <body>" + System.lineSeparator()
                + "  <h1>misha</h1>" + System.lineSeparator()
-               + "   <p>20.02.2021</p>" + System.lineSeparator()
-               + "   <p>20.02.2021</p>" + System.lineSeparator()
+               + "   <p>13.12.2020</p>" + System.lineSeparator()
+               + "   <p>13.12.2020</p>" + System.lineSeparator()
                + "   <p>50000.0</p>" + System.lineSeparator()
                + " </body>" + System.lineSeparator()
                + "</html>";
@@ -53,7 +53,7 @@ public class RunCompanyReportTest {
         Report accounting = new ReportAccounting(dbForTest);
         String report = accounting.generate();
         String expected = "Name; Hired; Fired; Salary; Department;" + System.lineSeparator()
-                + "roma; 20.02.2021; 20.02.2021; 80000; accounting " + System.lineSeparator();
+                + "roma; 13.12.2020; 13.12.2020; 80000; accounting" + System.lineSeparator();
         assertThat(report, is(expected));
     }
 }

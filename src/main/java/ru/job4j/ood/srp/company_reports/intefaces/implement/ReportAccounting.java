@@ -18,7 +18,7 @@ public class ReportAccounting implements Report {
     public String generate() {
         StringBuilder report = new StringBuilder();
         report.append("Name; Hired; Fired; Salary; Department;").append(System.lineSeparator());
-        store.findByDepartment("accounting ").stream()
+        store.findByDepartment("accounting").stream()
                 .map(employer -> String.format(
                         "%s; %s; %s; %s; %s",
                         employer.getName(),

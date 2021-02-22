@@ -28,7 +28,7 @@ public class ReportProgrammer implements Report {
                 + " </head>" + System.lineSeparator()
                 + " <body>" + System.lineSeparator()
         );
-        for (Employer employer : store.findByDepartment("developer ")) {
+        for (Employer employer : store.findByDepartment("developer")) {
             result.append("  <h1>").append(employer.getName()).append("</h1>").append(System.lineSeparator())
                     .append("   <p>").append(
                             PATTERN_OF_DATA_FOR_CONVERT.format(employer.getHired().getTime())

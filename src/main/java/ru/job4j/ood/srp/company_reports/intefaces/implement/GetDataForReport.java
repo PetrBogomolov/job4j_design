@@ -52,12 +52,8 @@ public class GetDataForReport implements Store {
                             new Employer(
                                     resultSet.getInt("id"),
                                     resultSet.getString("name"),
-                                    //TODO проблемы с форматированием форматов данных
-                                    // по-разному пробовал все равно падает ошибка NPE
-                                    //timestampToCalendar(resultSet.getTimestamp("hired")),
-                                    //timestampToCalendar(resultSet.getTimestamp("fired")),
-                                    new GregorianCalendar(),
-                                    new GregorianCalendar(),
+                                    timestampToCalendar(resultSet.getTimestamp("hired")),
+                                    timestampToCalendar(resultSet.getTimestamp("fired")),
                                     resultSet.getDouble("salary"),
                                     resultSet.getString("department")
                             )
@@ -72,8 +68,12 @@ public class GetDataForReport implements Store {
 
     private Calendar timestampToCalendar(Timestamp timestamp) {
         Calendar calendar = new GregorianCalendar();
-        Date date = new Date(timestamp.getTime());
-        calendar.setTime(date);
+        if (timestamp != null) {
+            Date date = new Date(timestamp.getTime());
+            calendar.setTime(date);
+        } else {
+            calendar.clear();
+        }
         return calendar;
     }
 }
