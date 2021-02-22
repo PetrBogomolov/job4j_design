@@ -72,7 +72,7 @@ public class GetDataForReport implements Store {
             Date date = new Date(timestamp.getTime());
             calendar.setTime(date);
         } else {
-            calendar.clear();
+            calendar = null;
         }
         return calendar;
     }

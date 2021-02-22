@@ -23,7 +23,8 @@ public class ReportAccounting implements Report {
                         "%s; %s; %s; %s; %s",
                         employer.getName(),
                         PATTERN_OF_DATA_FOR_CONVERT.format(employer.getHired().getTime()),
-                        PATTERN_OF_DATA_FOR_CONVERT.format(employer.getFired().getTime()),
+                        employer.getFired() != null ?
+                                PATTERN_OF_DATA_FOR_CONVERT.format(employer.getFired().getTime()) : null,
                         (int)employer.getSalary(),
                         employer.getDepartment() + System.lineSeparator()))
                 .forEach(report::append);

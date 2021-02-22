@@ -34,7 +34,8 @@ public class ReportProgrammer implements Report {
                             PATTERN_OF_DATA_FOR_CONVERT.format(employer.getHired().getTime())
             ).append("</p>").append(System.lineSeparator())
                     .append("   <p>").append(
-                            PATTERN_OF_DATA_FOR_CONVERT.format(employer.getFired().getTime())
+                            employer.getFired() != null ?
+                                    PATTERN_OF_DATA_FOR_CONVERT.format(employer.getFired().getTime()) : null
             ).append("</p>").append(System.lineSeparator())
                     .append("   <p>").append(employer.getSalary()).append("</p>").append(System.lineSeparator());
         }
