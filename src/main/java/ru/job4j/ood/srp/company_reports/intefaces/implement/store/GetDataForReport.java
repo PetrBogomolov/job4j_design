@@ -1,4 +1,4 @@
-package ru.job4j.ood.srp.company_reports.intefaces.implement;
+package ru.job4j.ood.srp.company_reports.intefaces.implement.store;
 
 import ru.job4j.ood.srp.company_reports.intefaces.Store;
 import ru.job4j.ood.srp.company_reports.model.Employer;
@@ -48,16 +48,14 @@ public class GetDataForReport implements Store {
             statement.setString(1, department);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    employees.add(
-                            new Employer(
-                                    resultSet.getInt("id"),
-                                    resultSet.getString("name"),
-                                    timestampToCalendar(resultSet.getTimestamp("hired")),
-                                    timestampToCalendar(resultSet.getTimestamp("fired")),
-                                    resultSet.getDouble("salary"),
-                                    resultSet.getString("department")
-                            )
-                    );
+                    Employer employer = new Employer();
+                    employer.setId(resultSet.getInt("id"));
+                    employer.setName(resultSet.getString("name"));
+                    employer.setHired(timestampToCalendar(resultSet.getTimestamp("hired")));
+                    employer.setFired(timestampToCalendar(resultSet.getTimestamp("fired")));
+                    employer.setSalary(resultSet.getDouble("salary"));
+                    employer.setDepartment(resultSet.getString("department"));
+                    employees.add(employer);
                 }
             }
         } catch (SQLException troubles) {

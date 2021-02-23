@@ -1,13 +1,14 @@
 package ru.job4j.ood.srp.company_reports.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
+@XmlType(name = "employer")
+@XmlRootElement
 public class Employer {
-
-    private static final SimpleDateFormat PATTERN_OF_DATA_FOR_CONVERT =
-            new SimpleDateFormat("dd.MM.yyyy");
     private int id;
     private String name;
     private Calendar hired;
@@ -15,14 +16,6 @@ public class Employer {
     private double salary;
     private String department;
 
-    public Employer(int id, String name, Calendar hired, Calendar fired, double salary, String department) {
-        this.id = id;
-        this.name = name;
-        this.hired = hired;
-        this.fired = fired;
-        this.salary = salary;
-        this.department = department;
-    }
 
     public int getId() {
         return id;
@@ -98,9 +91,18 @@ public class Employer {
         return "Employer:" + System.lineSeparator()
                 + "id - " + id + System.lineSeparator()
                 + "name - " + name + System.lineSeparator()
-                + "hired - " + PATTERN_OF_DATA_FOR_CONVERT.format(hired.getTime()) + System.lineSeparator()
-                + "fired - " + PATTERN_OF_DATA_FOR_CONVERT.format(fired.getTime()) + System.lineSeparator()
+                + "hired - " + convertCalendarToString(getHired()) + System.lineSeparator()
+                + "fired - " + convertCalendarToString(getFired()) + System.lineSeparator()
                 + "salary - " + salary + System.lineSeparator()
                 + "department - " + department + ';' + System.lineSeparator();
+    }
+
+    private String convertCalendarToString(Calendar calendar) {
+        String date = null;
+        SimpleDateFormat pattern = new SimpleDateFormat("dd.MM.yyyy");
+        if (calendar != null) {
+            date = pattern.format(calendar.getTime());
+        }
+        return date;
     }
 }

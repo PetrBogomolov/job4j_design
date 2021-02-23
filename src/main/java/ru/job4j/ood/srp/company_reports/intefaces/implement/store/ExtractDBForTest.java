@@ -1,4 +1,4 @@
-package ru.job4j.ood.srp.company_reports.intefaces.implement;
+package ru.job4j.ood.srp.company_reports.intefaces.implement.store;
 
 import ru.job4j.ood.srp.company_reports.intefaces.Store;
 import ru.job4j.ood.srp.company_reports.model.Employer;
@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ExtractDBForTest implements Store {
 
-    private Store getDataForTest;
+    private final Store getDataForTest;
 
     public ExtractDBForTest(String fileProperties) {
         getDataForTest = new GetDataForReport(fileProperties);
