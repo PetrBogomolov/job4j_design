@@ -17,10 +17,10 @@ public class ReportJSON implements Report {
     @Override
     public String generate(String nameDepartment) {
         Gson gson = new GsonBuilder().create();
-        String result = null;
+        StringBuilder result = new StringBuilder();
         for (Employer employer : store.findByDepartment(nameDepartment)) {
-            result = gson.toJson(employer);
+            result.append(gson.toJson(employer)).append(System.lineSeparator());
         }
-        return result != null ? result : "objects not found";
+        return result.toString();
     }
 }
