@@ -2,6 +2,7 @@ package ru.job4j.ood.lsp.storage_foods.interfaces;
 
 import ru.job4j.ood.lsp.storage_foods.foods.Food;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -31,4 +32,14 @@ public interface Storage {
         double daysFromDateCreated = today.getDayOfYear() - food.getCreateDate().getDayOfYear();
         return daysFromDateCreated / (totalStorageLife / 100);
     }
+
+    /*
+     * метод извлекает все содержимое из хранилища
+     */
+    List<Food> getProducts();
+
+    /*
+     * метод очищает содержимое хранилища
+     */
+    void clear();
 }

@@ -4,11 +4,9 @@ import ru.job4j.ood.lsp.storage_foods.foods.Bananas;
 import ru.job4j.ood.lsp.storage_foods.foods.Fish;
 import ru.job4j.ood.lsp.storage_foods.foods.Food;
 import ru.job4j.ood.lsp.storage_foods.foods.Milk;
-import ru.job4j.ood.lsp.storage_foods.interfaces.Shop;
-import ru.job4j.ood.lsp.storage_foods.interfaces.Storage;
-import ru.job4j.ood.lsp.storage_foods.interfaces.Trash;
-import ru.job4j.ood.lsp.storage_foods.interfaces.Warehouse;
+import ru.job4j.ood.lsp.storage_foods.interfaces.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControllQuality {
@@ -30,6 +28,15 @@ public class ControllQuality {
         for (Storage storage : storages) {
             System.out.println(storage.showStorage());
         }
+    }
+
+    public void restore() {
+        List<Food> allFoods = new ArrayList<>();
+        for (Storage storage : storages) {
+            allFoods.addAll(storage.getProducts());
+            storage.clear();
+        }
+        allFoods.forEach(this::distribute);
     }
 
 
@@ -57,6 +64,8 @@ public class ControllQuality {
         control.distribute(fishShop);
         control.distribute(fishDiscount);
         control.distribute(fishDiscount);
+        control.showStorages();
+        control.restore();
         control.showStorages();
     }
 }
