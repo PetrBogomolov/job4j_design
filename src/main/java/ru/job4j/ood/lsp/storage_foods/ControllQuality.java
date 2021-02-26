@@ -8,38 +8,30 @@ import ru.job4j.ood.lsp.storage_foods.interfaces.Shop;
 import ru.job4j.ood.lsp.storage_foods.interfaces.Storage;
 import ru.job4j.ood.lsp.storage_foods.interfaces.Trash;
 import ru.job4j.ood.lsp.storage_foods.interfaces.Warehouse;
-
 import java.time.LocalDate;
+import java.util.List;
 
 public class ControllQuality {
+    private final List<Storage> storages;
 
-    private Storage storage;
+    public ControllQuality(List<Storage> storages) {
+        this.storages = storages;
+    }
 
-    public void distribute(Food food, int discount) {
-        double percent = getPercent(food.getCreateDate(), food.getExpiryDate(), LocalDate.now());
-        if (percent > 100) {
-            storage = new Trash();
-            System.out.println("in trash");
-        } else if (percent < 25) {
-            storage = new Warehouse();
-            System.out.println("in warehouse");
-        } else if (percent >= 25 && percent < 75) {
-            storage = new Shop();
-            System.out.println("in shop");
-        } else if (percent >= 75 && percent <= 100) {
-            storage = new Shop();
-            food.setDiscount(discount);
-            System.out.printf("in shop plus discount %d%n", discount);
+    public void distribute(Food food) {
+        for (Storage storage : storages) {
+            if (storage.accept(food)) {
+                storage.addStorage(food);
+            }
         }
-        storage.addStorage(food);
-        System.out.println(storage.showStorage());
     }
 
-    public double getPercent(LocalDate createDate, LocalDate expiryDate, LocalDate today) {
-        double totalStorageLife = expiryDate.getDayOfYear() - createDate.getDayOfYear();
-        double daysFromDateCreated = today.getDayOfYear() - createDate.getDayOfYear();
-        return daysFromDateCreated / (totalStorageLife / 100);
+    public void showStorages() {
+        for (Storage storage : storages) {
+            System.out.println(storage.showStorage());
+        }
     }
+
 
     public static void main(String[] args) {
         Food bananTrash = new Bananas("Banan",
@@ -58,12 +50,13 @@ public class ControllQuality {
                 LocalDate.of(2021, 2, 1),
                 LocalDate.of(2021, 2, 28),
                 150);
-        ControllQuality control = new ControllQuality();
-        control.distribute(bananTrash, 10);
-        control.distribute(bananTrash, 10);
-        control.distribute(milkWarehouse, 10);
-        control.distribute(fishShop, 10);
-        control.distribute(fishDiscount, 10);
-        control.distribute(fishDiscount, 10);
+        ControllQuality control = new ControllQuality(List.of(new Shop(), new Warehouse(), new Trash()));
+        control.distribute(bananTrash);
+        control.distribute(bananTrash);
+        control.distribute(milkWarehouse);
+        control.distribute(fishShop);
+        control.distribute(fishDiscount);
+        control.distribute(fishDiscount);
+        control.showStorages();
     }
 }
