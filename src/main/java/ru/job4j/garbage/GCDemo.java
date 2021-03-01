@@ -1,6 +1,5 @@
 package ru.job4j.garbage;
 
-
 public class GCDemo {
 
     private static final long KB = 1024;

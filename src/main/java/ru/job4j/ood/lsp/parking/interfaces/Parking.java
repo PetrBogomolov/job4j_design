@@ -26,7 +26,7 @@ public class Parking implements Park {
             return true;
         } else if (initialCapacity > 2 && car.getType().equals(Type.TRUCK)) {
             cars.add(car);
-            initialCapacity = initialCapacity -3;
+            initialCapacity = initialCapacity - 3;
             return true;
         } else {
             System.out.println("no places");

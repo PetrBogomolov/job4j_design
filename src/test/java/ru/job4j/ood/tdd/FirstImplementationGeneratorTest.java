@@ -21,7 +21,8 @@ public class FirstImplementationGeneratorTest {
                 "subject", "you"
         );
         template = "I am a ${name}, Who are ${subject}?";
-        templateWithExtraKey = "I am a ${name}, Who are ${subject} and Where are you ${preposition}?";
+        templateWithExtraKey =
+                "I am a ${name}, Who are ${subject} and Where are you ${preposition}?";
         templateWithSmallerKeyThanInMap = "I am a ${name}";
     }
 

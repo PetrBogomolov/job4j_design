@@ -2,7 +2,7 @@ package ru.job4j.ood.isp;
 
 /*
  * Интерфейс описывает функционал работы с сайтом
- * Для соблядения принципа ISP интерфейс Server необходимо разделить на в нашем случае два интерфейса.
+ * Для соблядения принципа ISP интерфейс Server необходимо разделить на два интерфейса.
  * первый - полный, для админа
  * второй - пользовательский, для юзера
  */
@@ -61,7 +61,7 @@ public interface Server<T> {
      * Этому классу нужен весь функционал интерфейса Server
      */
     class Admin {
-        ServerImpl server = new ServerImpl();
+        private final ServerImpl server = new ServerImpl();
 
         public void deletUser() {
             server.deleteUser();
@@ -73,7 +73,7 @@ public interface Server<T> {
      * Более того, наличие доп. функционала у пользователя ставит под сомнения безопастность системы
      */
     class User {
-        ServerImpl server = new ServerImpl();
+        private final ServerImpl server = new ServerImpl();
 
         public Object findByName() {
            return server.findByName();

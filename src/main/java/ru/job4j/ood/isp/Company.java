@@ -41,7 +41,7 @@ public interface Company {
     }
 
     class Developer {
-        Company dev = new CompanyImpl();
+        private final Company dev = new CompanyImpl();
 
         public void developProgramm() {
             dev.developProgramm();
@@ -49,23 +49,23 @@ public interface Company {
     }
 
     class HR {
-        Company HR = new CompanyImpl();
+        private final Company hr = new CompanyImpl();
 
         public void hireEmloyee() {
-            HR.hireEmployee();
+            hr.hireEmployee();
         }
     }
 
     class Accounting {
-        Company Accounting = new CompanyImpl();
+        private final Company accounting = new CompanyImpl();
 
         public void calculateSalary() {
-            Accounting.calculateSalary();
+            accounting.calculateSalary();
         }
     }
 
     class DinnerRoom {
-        Company dinner = new CompanyImpl();
+        private final Company dinner = new CompanyImpl();
 
         public void cookDinner() {
             dinner.cookDinner();
