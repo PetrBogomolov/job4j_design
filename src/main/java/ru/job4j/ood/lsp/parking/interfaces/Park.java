@@ -11,7 +11,7 @@ public interface Park {
      * Метод заполняет парковку машиной
      * @param car машина для парковки
      */
-    void addCarInParking(Car car);
+    boolean addCarInParking(Car car);
 
     /**
      * метод показывает сколько свободных мест осталось на парковке
@@ -20,15 +20,8 @@ public interface Park {
     int getFreePlaces();
 
     /**
-     * метод определяет тип машины
-     * @param car машины, которая будет парвковаться
-     * @return тип машины
-     */
-    String defineTypeCar(Car car);
-
-    /**
      * метод освобождает место на парковке
-     * @param place номер парковочного места
+     * @param car машина освободившая парковочное место
      */
-    void deleteCarFromParking(int place);
+    boolean deleteCarFromParking(Car car);
 }
