@@ -1,24 +1,22 @@
 package ru.job4j.ood.lsp.parking.cars;
 
-import ru.job4j.ood.lsp.parking.Type;
-
 public class Car {
     private final String name;
-    private final Type type;
+    private final int size;
 
-    public Car(String name, Type type) {
+    public Car(String name, int size) {
         this.name = name;
-        this.type = type;
+        this.size = size;
     }
 
-    public Type getType() {
-        return type;
+    public int getSize() {
+        return size;
     }
 
     @Override
     public String toString() {
-        return "Car : "
-               + "name = " + name
-               + ", type = " + type;
+        return "Car "
+               + "name - " + name
+               + ", size - " + size;
     }
 }

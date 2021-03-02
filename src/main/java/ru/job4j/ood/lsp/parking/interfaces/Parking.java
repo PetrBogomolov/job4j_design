@@ -1,6 +1,5 @@
 package ru.job4j.ood.lsp.parking.interfaces;
 
-import ru.job4j.ood.lsp.parking.Type;
 import ru.job4j.ood.lsp.parking.cars.Car;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,19 +13,11 @@ public class Parking implements Park {
         this.initialCapacity = initialCapacity;
     }
 
-    public List<Car> getCars() {
-        return cars;
-    }
-
     @Override
     public boolean addCarInParking(Car car) {
-        if (initialCapacity > 0 && car.getType().equals(Type.PASSENGER)) {
+        if ((initialCapacity - car.getSize()) > 0) {
             cars.add(car);
-            initialCapacity--;
-            return true;
-        } else if (initialCapacity > 2 && car.getType().equals(Type.TRUCK)) {
-            cars.add(car);
-            initialCapacity = initialCapacity - 3;
+            initialCapacity = initialCapacity - car.getSize();
             return true;
         } else {
             System.out.println("no places");
@@ -42,16 +33,9 @@ public class Parking implements Park {
     @Override
     public boolean deleteCarFromParking(Car car) {
         if (cars.contains(car)) {
-            if (car.getType().equals(Type.PASSENGER)) {
-                cars.remove(car);
-                initialCapacity++;
-                return true;
-            }
-            if (car.getType().equals(Type.TRUCK)) {
-                cars.remove(car);
-                initialCapacity = initialCapacity + 3;
-                return true;
-            }
+            cars.remove(car);
+            initialCapacity = initialCapacity + car.getSize();
+            return true;
         } else {
             System.out.println("This car wasn't park in this parking");
         }
