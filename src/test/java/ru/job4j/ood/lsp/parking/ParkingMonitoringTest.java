@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.job4j.ood.lsp.parking.cars.Car;
 import ru.job4j.ood.lsp.parking.cars.Passenger;
+import ru.job4j.ood.lsp.parking.cars.Truck;
 import ru.job4j.ood.lsp.parking.interfaces.Park;
 import ru.job4j.ood.lsp.parking.interfaces.Parking;
 import static org.hamcrest.core.Is.is;
@@ -23,9 +24,9 @@ public class ParkingMonitoringTest {
         reno = new Passenger("Logan", 1);
         honda = new Passenger("Civic", 1);
         bmw = new Passenger("m5", 1);
-        kamaz = new Passenger("Kamaz", 3);
-        ford = new Passenger("Ford", 3);
-        scania = new Passenger("Scania", 3);
+        kamaz = new Truck("Kamaz", 3);
+        ford = new Truck("Ford", 3);
+        scania = new Truck("Scania", 3);
         parking = new Parking(10);
     }
 
