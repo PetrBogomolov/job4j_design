@@ -5,39 +5,65 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Parking implements Park {
+    private int placesForTruck;
+    private int placesForPassenger;
+    private final int limitTruckPlaces;
+    private final List<Car> cars = new ArrayList<>();
 
-    private int initialCapacity;
-    private List<Car> cars = new ArrayList<>();
-
-    public Parking(int initialCapacity) {
-        this.initialCapacity = initialCapacity;
+    public Parking(int placesForTruck, int placesForPassenger) {
+        this.placesForTruck = placesForTruck;
+        this.placesForPassenger = placesForPassenger;
+        this.limitTruckPlaces = placesForTruck;
     }
 
     @Override
     public boolean addCarInParking(Car car) {
-        if ((initialCapacity - car.getSize()) > 0) {
-            cars.add(car);
-            initialCapacity = initialCapacity - car.getSize();
-            return true;
-        } else {
-            System.out.println("no places");
-        }
+       if (placesForPassenger > 0 && car.getSize() == 1) {
+           cars.add(car);
+           placesForPassenger--;
+           return true;
+       }
+       if ((placesForTruck > 0 && car.getSize() > 1)) {
+           cars.add(car);
+           placesForTruck--;
+           return true;
+       }
+       if (placesForTruck == 0 && car.getSize() > 1 && (placesForPassenger- car.getSize()) >= 0) {
+           cars.add(car);
+           placesForPassenger = placesForPassenger - car.getSize();
+           return true;
+       }
         return false;
     }
 
     @Override
-    public int getFreePlaces() {
-        return initialCapacity;
+    public int getFreePlacesForPassenger() {
+        return placesForPassenger;
+    }
+
+    @Override
+    public int getFreePlacesForTruck() {
+        return placesForTruck;
     }
 
     @Override
     public boolean deleteCarFromParking(Car car) {
         if (cars.contains(car)) {
-            cars.remove(car);
-            initialCapacity = initialCapacity + car.getSize();
-            return true;
-        } else {
-            System.out.println("This car wasn't park in this parking");
+            if (car.getSize() == 1) {
+                cars.remove(car);
+                placesForPassenger++;
+                return true;
+            }
+            if (car.getSize() > 1 && placesForTruck == limitTruckPlaces) {
+                cars.remove(car);
+                placesForPassenger = placesForPassenger + car.getSize();
+                return true;
+            }
+            if (car.getSize() > 1) {
+                cars.remove(car);
+                placesForTruck++;
+                return true;
+            }
         }
         return false;
     }

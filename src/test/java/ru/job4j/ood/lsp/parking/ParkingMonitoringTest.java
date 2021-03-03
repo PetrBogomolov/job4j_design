@@ -12,64 +12,88 @@ import static org.junit.Assert.*;
 
 public class ParkingMonitoringTest {
     private Car reno;
-    private Car honda;
-    private Car bmw;
-    private Car kamaz;
     private Car scania;
-    private Car ford;
     private Park parking;
 
     @Before
     public void setup() {
-        reno = new Passenger("Logan", 1);
-        honda = new Passenger("Civic", 1);
-        bmw = new Passenger("m5", 1);
-        kamaz = new Truck("Kamaz", 3);
-        ford = new Truck("Ford", 3);
+        reno = new Passenger("Logan");
         scania = new Truck("Scania", 3);
-        parking = new Parking(10);
+        parking = new Parking(4, 4);
     }
 
     @Test
-    public void whenParkingEmptyThen10Places() {
-        assertThat(10, is(parking.getFreePlaces()));
+    public void whenParkingEmptyThen5PlacesForPassenger() {
+        assertThat(4, is(parking.getFreePlacesForPassenger()));
     }
 
     @Test
-    public void whenAddInParking2TrucksThenRemain4FreePlaces() {
-        parking.addCarInParking(ford);
-        parking.addCarInParking(kamaz);
-        assertThat(4, is(parking.getFreePlaces()));
+    public void whenParkingEmptyThen5PlacesForTruck() {
+        assertThat(4, is(parking.getFreePlacesForTruck()));
     }
 
     @Test
-    public void whenAddInParking4PassengerCarsThenRemain6FreePlaces() {
-        parking.addCarInParking(reno);
-        parking.addCarInParking(honda);
-        parking.addCarInParking(honda);
-        parking.addCarInParking(bmw);
-        assertThat(6, is(parking.getFreePlaces()));
-    }
-
-    @Test
-    public void whenNoPlacesInParking() {
-        parking.addCarInParking(ford);
-        parking.addCarInParking(kamaz);
+    public void whenParkedOneTruckThenRemainThreePlacesForTruck() {
         parking.addCarInParking(scania);
-        assertThat(false, is(parking.addCarInParking(scania)));
+        assertThat(3, is(parking.getFreePlacesForTruck()));
     }
 
     @Test
-    public void whenWasThreeTrucksDeleteOneTrucksThenRemain4FreePlaces() {
-        parking.addCarInParking(ford);
-        parking.addCarInParking(kamaz);
+    public void whenParkedTwoPassengersThenRemainTwoPlaceForPassenger() {
+        parking.addCarInParking(reno);
+        parking.addCarInParking(reno);
+        assertThat(2, is(parking.getFreePlacesForPassenger()));
+    }
+
+    @Test
+    public void whenNoPlacesInParkingForPassenger() {
+        parking.addCarInParking(reno);
+        parking.addCarInParking(reno);
+        parking.addCarInParking(reno);
+        parking.addCarInParking(reno);
+        assertThat(false, is(parking.addCarInParking(reno)));
+    }
+
+    @Test
+    public void whenAllPlacesForTruckIsTakenThenTruckParkedInPassengerPlace() {
+        parking.addCarInParking(scania);
+        parking.addCarInParking(scania);
+        parking.addCarInParking(scania);
+        parking.addCarInParking(scania);
+        parking.addCarInParking(scania);
+        assertThat(0, is(parking.getFreePlacesForTruck()));
+        assertThat(1, is(parking.getFreePlacesForPassenger()));
+    }
+
+    @Test
+    public void whenAllPlacesIsTaken() {
+        parking.addCarInParking(scania);
+        parking.addCarInParking(scania);
+        parking.addCarInParking(scania);
+        parking.addCarInParking(scania);
+        parking.addCarInParking(scania);
+        parking.addCarInParking(reno);
+        assertThat(false, is(parking.addCarInParking(reno)));
+    }
+
+    @Test
+    public void whenDeleteCarWhichWasNotParkedInThisParkingThenFalse() {
+        assertThat(false, is(parking.deleteCarFromParking(reno)));
+    }
+
+    @Test
+    public void whenDeeCarWhichWasNotParkedInThisParkingThenFalse() {
+        parking.addCarInParking(scania);
+        parking.addCarInParking(scania);
+        parking.addCarInParking(scania);
+        parking.addCarInParking(scania);
         parking.addCarInParking(scania);
         parking.deleteCarFromParking(scania);
-        assertThat(4, is(parking.getFreePlaces()));
-    }
-
-    @Test
-    public void whenDeleteCarWhichWasNotParkedInThisParking() {
-        assertThat(false, is(parking.deleteCarFromParking(scania)));
+        parking.deleteCarFromParking(scania);
+        parking.deleteCarFromParking(scania);
+        parking.deleteCarFromParking(scania);
+        parking.deleteCarFromParking(scania);
+        assertThat(4, is(parking.getFreePlacesForTruck()));
+        assertThat(4, is(parking.getFreePlacesForPassenger()));
     }
 }
