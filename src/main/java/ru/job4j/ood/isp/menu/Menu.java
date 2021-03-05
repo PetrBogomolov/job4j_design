@@ -13,7 +13,6 @@ public class Menu implements Output {
         tasks.add(task);
     }
 
-
     @Override
     public void print() {
         StringBuilder builder = new StringBuilder();

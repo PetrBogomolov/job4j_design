@@ -28,7 +28,7 @@ public class Parking implements Park {
            placesForTruck--;
            return true;
        }
-       if (placesForTruck == 0 && car.getSize() > 1 && (placesForPassenger- car.getSize()) >= 0) {
+       if (placesForTruck == 0 && car.getSize() > 1 && (placesForPassenger - car.getSize()) >= 0) {
            cars.add(car);
            placesForPassenger = placesForPassenger - car.getSize();
            return true;
