@@ -4,13 +4,38 @@ import ru.job4j.ood.isp.menu.interfaces.output.Output;
 import ru.job4j.ood.isp.menu.model.Task;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Menu implements Output {
 
     private final List<Task> tasks = new ArrayList<>();
 
-    public void addInMenu(Task task) {
+    public void addTask(Task task) {
         tasks.add(task);
+    }
+
+    public void addSubTask(String taskName, Task subtask) {
+        for (Task task : tasks) {
+            if (!task.getName().equals(taskName)) {
+                searchTask(taskName, task).ifPresent(value -> value.addChild(subtask));
+            } else {
+                task.addChild(subtask);
+            }
+        }
+    }
+
+    private Optional<Task> searchTask(String taskName, Task task) {
+        Optional<Task> result = Optional.empty();
+        if (!task.getChildren().isEmpty()) {
+            for (Task child : task.getChildren()) {
+                if (child.getName().equals(taskName)) {
+                    result = Optional.of(child);
+                    break;
+                }
+                searchTask(taskName, child);
+            }
+        }
+        return result;
     }
 
     @Override
@@ -34,14 +59,11 @@ public class Menu implements Output {
 
     public static void main(String[] args) {
         Menu menu = new Menu();
-        Task task1 = new Task("Task 1", List.of());
-        Task task11 = new Task("Task 1.1", List.of());
-        Task task111 = new Task("Task 1.1.1", List.of());
-        Task task2 = new Task("Task 2", List.of());
-        task1.addChild(task11);
-        task11.addChild(task111);
-        menu.addInMenu(task1);
-        menu.addInMenu(task2);
+        menu.addTask(new Task("Task 1", List.of()));
+        menu.addSubTask("Task 1", new Task("Task 1.1", List.of()));
+        menu.addSubTask("Task 1.1", new Task("Task 1.1.1", List.of()));
+        menu.addTask(new Task("Task 2", List.of()));
+        menu.addSubTask("Task 2", new Task("Task 2.1", List.of()));
         menu.print();
     }
 }
